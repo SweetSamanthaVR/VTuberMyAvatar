@@ -27,6 +27,26 @@ your prefab.
 
 ---
 
+## Table of Contents
+
+- [Bring your own avatar](#bring-your-own-avatar)
+- [What you get](#what-you-get)
+- [What you need (install once)](#what-you-need-install-once)
+- [The two Unity projects](#the-two-unity-projects)
+- [One-time setup](#one-time-setup)
+  - [1. Tracker (Python)](#1-tracker-python)
+  - [2. Authoring project](#2-authoring-project-a-copy-of-your-avatar-project)
+  - [3. OBS](#3-obs)
+- [Running it (every stream)](#running-it-every-stream)
+  - [Hotkeys](#hotkeys-in-the-app-window)
+- [Tuning](#tuning)
+- [Performance notes (one-PC streaming)](#performance-notes-one-pc-streaming)
+- [Build the standalone .exe (recommended)](#build-the-standalone-exe-recommended)
+- [Limitations & notes](#limitations--notes)
+- [Troubleshooting](#troubleshooting)
+
+---
+
 ## Bring your own avatar
 
 **This kit ships no avatar, outfit, or shader.** It's only the tracker and the driver code. You
