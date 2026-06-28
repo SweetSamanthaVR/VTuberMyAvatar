@@ -1,0 +1,5 @@
+# VTuber My Avatar webcam tracker dependencies.
+# Pinned to known-good ranges for Python 3.10-3.12 on Windows.
+mediapipe>=0.10.14,<0.11
+opencv-python>=4.8,<5
+numpy>=1.24,<2

@@ -1,0 +1,13 @@
+# Normalize line endings: store LF in the repo, check out native on each OS.
+* text=auto eol=lf
+
+# Windows batch files must stay CRLF.
+*.bat text eol=crlf
+
+# Unity text assets - keep as text, normalized to LF.
+*.cs       text
+*.unity    text
+*.asset    text
+*.meta     text
+*.json     text
+*.renderTexture text

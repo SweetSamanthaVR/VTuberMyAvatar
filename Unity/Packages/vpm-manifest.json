@@ -1,0 +1,85 @@
+{
+  "dependencies": {
+    "com.vrchat.core.vpm-resolver": {
+      "version": "0.1.29"
+    },
+    "com.poiyomi.toon": {
+      "version": "9.3.64"
+    },
+    "gogoloco": {
+      "version": "1.8.6"
+    },
+    "vrchat.blackstartx.gesture-manager": {
+      "version": "3.9.8"
+    },
+    "adjerry91.vrcft.templates": {
+      "version": "7.0.5"
+    },
+    "io.github.rurre.pumkinsavatartools": {
+      "version": "1.4.7"
+    },
+    "com.vrchat.avatars": {
+      "version": "3.10.4"
+    },
+    "com.vrcfury.vrcfury": {
+      "version": "1.1345.0"
+    },
+    "nadena.dev.modular-avatar": {
+      "version": "1.17.1"
+    }
+  },
+  "locked": {
+    "com.vrchat.core.vpm-resolver": {
+      "version": "0.1.29",
+      "dependencies": {}
+    },
+    "com.poiyomi.toon": {
+      "version": "9.3.64",
+      "dependencies": {}
+    },
+    "gogoloco": {
+      "version": "1.8.6",
+      "dependencies": {
+        "com.vrchat.avatars": ">=3.2.2"
+      }
+    },
+    "vrchat.blackstartx.gesture-manager": {
+      "version": "3.9.8",
+      "dependencies": {
+        "com.vrchat.avatars": ">=3.5.2 < 3.11.X"
+      }
+    },
+    "adjerry91.vrcft.templates": {
+      "version": "7.0.5",
+      "dependencies": {}
+    },
+    "io.github.rurre.pumkinsavatartools": {
+      "version": "1.4.7",
+      "dependencies": {}
+    },
+    "com.vrchat.avatars": {
+      "version": "3.10.4",
+      "dependencies": {
+        "com.vrchat.base": "3.10.4"
+      }
+    },
+    "com.vrchat.base": {
+      "version": "3.10.4",
+      "dependencies": {}
+    },
+    "com.vrcfury.vrcfury": {
+      "version": "1.1345.0",
+      "dependencies": {}
+    },
+    "nadena.dev.modular-avatar": {
+      "version": "1.17.1",
+      "dependencies": {
+        "nadena.dev.ndmf": ">=1.11.0 <2.0.0-a"
+      }
+    },
+    "nadena.dev.ndmf": {
+      "version": "1.13.1",
+      "dependencies": {}
+    }
+  }
+}

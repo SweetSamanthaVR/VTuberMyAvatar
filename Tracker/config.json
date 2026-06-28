@@ -1,0 +1,12 @@
+{
+  "camera_index": 0,
+  "capture_width": 640,
+  "capture_height": 480,
+  "target_fps": 30,
+  "udp_host": "127.0.0.1",
+  "udp_port": 39539,
+  "num_faces": 1,
+  "min_face_detection_confidence": 0.5,
+  "min_face_presence_confidence": 0.5,
+  "min_tracking_confidence": 0.5
+}
