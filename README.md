@@ -301,22 +301,3 @@ project and rebuilt in the clean one:
 | Arms stuck out in a T/A-pose | Turn on `idle.restArms` and dial in `restArmsAngle` (**F2 > Idle**), live, no relaunch. |
 | Arms folded/clipping into the body | `restArmsAngle` is too high for this avatar's bind pose, lower it (or turn `idle.restArms` off) live in **F2 > Idle**. |
 | Eyes don't fully close (esp. with glasses) | Press **B** with eyes open, then **B** with eyes closed (glasses on) to calibrate. Watch the overlay's "Eye-close: now" value while closing your eyes, if it can't get above ~0.4 through the glasses, webcam blink isn't usable and auto-blink is the better option. |
-
----
-
-## File map
-
-```
-Tracker/
-  face_tracker.py        webcam -> MediaPipe -> UDP
-  protocol.py            packet format + ARKit-52 order (mirror of TrackingProtocol.cs)
-  config.json            camera / port / fps
-  setup_tracker.bat      one-time: venv + deps + model download
-  start_tracker.bat      run the tracker
-Unity/Assets/vTuber/
-  Scripts/FaceTracking/  TrackingProtocol, TrackingFrame, UdpTrackingReceiver
-  Scripts/Avatar/        BlendshapeLibrary, ArkitAvatarMap, AvatarFaceDriver,
-                         HeadPoseDriver, EyeGazeDriver, MicLipSync, IdleMotion, SpringBone
-  Scripts/App/           AppSettings, AppController
-  Editor/                VTuberMyAvatarSetup  (the "Build Scene" / avatar-select menu commands)
-```
