@@ -68,27 +68,30 @@ yourself, once:
 | **VRChat SDK3 (Avatars)** | VRChat Creator Companion (VCC) |
 | **VRCFury** | VCC *(optional, only if your avatar uses it)* |
 | **Poiyomi** / your avatar's shaders | *optional, only if your avatar uses it* |
-| **KlakSpout** | auto-installs from the Git URL in `Unity/Packages/manifest.json` (needs [Git for Windows](https://git-scm.com/download/win)) |
+| **KlakSpout** | added in Package Manager via git URL during setup (needs [Git for Windows](https://git-scm.com/download/win)) |
 | **Spout2 Plugin for OBS** | https://github.com/Off-World-Live/obs-spout2-plugin |
 
-To use the kit, copy the `Assets/vTuber/` folder from this repo into your *own*
-VRChat avatar Unity project (the one where your avatar prefab already lives), then follow
-[One-time setup](#one-time-setup).
+Before you do anything, **make a copy of your VRChat avatar's Unity project and work in the
+copy**, never your live one. Setup wires scenes and components into the project, so if a step
+goes wrong you've still got your original safe. Everything below assumes you're in that copy.
+The [One-time setup](#one-time-setup) walks you through the rest.
 
 ---
 
 ## The two Unity projects
 
-You use both, for different jobs: **`Unity/`** to author and test, **`UnityStandalone/`** to
-build the **`.exe`** you actually stream with.
+You work in two separate Unity projects, for two different jobs. Neither one *is* this repo,
+the repo just holds the kit files that go into each (a copy under `Unity/` for the first,
+a copy under `UnityStandalone/` for the second).
 
-- **`Unity/`** is the authoring project. Open it with the VRChat SDK (plus VRCFury and
-  NDMF if your avatar uses them). This is where your avatar prefab lives intact and where you
-  quickly test in editor Play mode. Unity 2022.3.22f1, Built-in RP.
-- **`UnityStandalone/`** is a clean project with no VRChat SDK that compiles the standalone
-  **`.exe`**, the recommended way to run for streaming. The SDK's build hooks block a normal
-  player build, so the avatar is baked out of `Unity/` and imported here. See
-  [Build the .exe](#build-the-standalone-exe-recommended).
+- **Authoring project** (author and test). This is a **copy of your own VRChat avatar project**,
+  opened with the VRChat SDK (plus VRCFury and NDMF if your avatar uses them). Your avatar prefab
+  lives here intact and you test it in editor Play mode. You drop the repo's
+  **`Unity/Assets/vTuber/`** folder into it. Unity 2022.3.22f1, Built-in RP.
+- **Standalone build project** (build the `.exe`). This is a **fresh, empty Unity project with
+  no VRChat SDK**, which you create yourself. The SDK's build hooks block a normal player build,
+  so the avatar is baked out of the authoring project and imported here, alongside the repo's
+  **`UnityStandalone/Assets/vTuber/`** folder. See [Build the .exe](#build-the-standalone-exe-recommended).
 
 > **Why the `.exe`, not editor Play?** The build is what you actually stream with: it honours
 > the FPS cap (the editor ignores it), runs leaner beside your game + OBS, and launches on its
@@ -103,23 +106,27 @@ build the **`.exe`** you actually stream with.
 2. Double-click **`Tracker/setup_tracker.bat`**. It makes a local virtual env, installs
    MediaPipe/OpenCV/NumPy, and downloads the face model. (A few minutes the first time.)
 
-### 2. Unity app
-1. Open the `Unity` project in **Unity 2022.3.22f1** with the **VRChat SDK** installed
-   (via VCC). Add **VRCFury** if your avatar uses it.
-2. Import **your avatar** into the project as you normally would, and make sure it exists as
-   a **prefab** in `Assets/` (drag it from the Hierarchy into a Project folder if needed).
-3. The **KlakSpout** package is already listed in `Packages/manifest.json` and installs
-   automatically. *(Git-URL packages need [Git for Windows](https://git-scm.com/download/win)
-   installed. If Package Manager reports it can't fetch it, see Troubleshooting.)*
-4. **Pick your avatar:** select its prefab in the Project window, then run
+### 2. Authoring project (a copy of your avatar project)
+1. **Make a copy of your VRChat avatar's Unity project**, then open the copy in **Unity
+   2022.3.22f1** with the **VRChat SDK** (via VCC), plus **VRCFury** if your avatar uses it.
+   Work in this copy, not your live project.
+2. Make sure your avatar exists as a **prefab** in `Assets/` (drag it from the Hierarchy into a
+   Project folder if it isn't already one).
+3. Copy the repo's **`Unity/Assets/vTuber/`** folder into the project's `Assets/` (keep the
+   `.meta` files alongside it).
+4. Add **KlakSpout**: *Window > Package Manager > + > Add package from git URL*, then paste
+   `https://github.com/keijiro/KlakSpout.git?path=Packages/jp.keijiro.klak.spout`. *(Git-URL
+   packages need [Git for Windows](https://git-scm.com/download/win). If it won't fetch, see
+   Troubleshooting.)*
+5. **Pick your avatar:** select its prefab in the Project window, then run
    **`VTuber My Avatar > Select Avatar Prefab...`** (top menu bar). *(If your project has
    exactly one humanoid prefab, the kit auto-detects it and you can skip this.)*
-5. Run **`VTuber My Avatar > Build Scene`**. This creates and wires everything: your avatar, a
+6. Run **`VTuber My Avatar > Build Scene`**. This creates and wires everything: your avatar, a
    transparent output camera, the Spout sender, a key light, an operator preview, and the
    full driver rig. It saves the scene to `Assets/vTuber/Scenes/VTuberMyAvatar.unity` and sets it
    as the build scene.
-6. Press **Play** for a quick test inside the editor (handy while tuning the avatar).
-7. **Build the `.exe` you'll stream with**: follow
+7. Press **Play** for a quick test inside the editor (handy while tuning the avatar).
+8. **Build the `.exe` you'll stream with**: follow
    [Build the standalone .exe](#build-the-standalone-exe-recommended). This is the recommended
    way to run: it honours the FPS cap, runs leaner, and launches without Unity.
 
@@ -231,18 +238,26 @@ This is the recommended way to run for streaming: the build honours the FPS cap 
 ignores it), runs leaner beside your game + OBS, and launches on its own without opening Unity.
 Editor Play mode is fine for a quick test, but the `.exe` is what you'll actually go live with.
 
-Because the VRChat SDK blocks normal player builds, the avatar is **baked** out of the SDK
-project and rebuilt in the clean one:
+Because the VRChat SDK blocks normal player builds, the avatar is **baked** out of the authoring
+project and rebuilt in a clean one that you set up once.
 
-1. In **`Unity/`**, run **`VTuber My Avatar > Export Baked Avatar (for standalone project)`**.
-   It runs the real VRChat/VRCFury bake on a *disposable copy* (merging VRCFury ArmatureLink
-   outfits and applying Toggle state), converts PhysBones to build-safe SpringBones, strips
-   the SDK/VRCFury components, persists the generated meshes, and writes
+**First time only, create the build project:**
+1. In **Unity Hub**, create a **new, empty 3D (Built-in RP) project** on **Unity 2022.3.22f1**,
+   with **no VRChat SDK** installed. This is your standalone build project.
+2. Copy the repo's **`UnityStandalone/Assets/vTuber/`** folder into its `Assets/` (keep the
+   `.meta` files), and add **KlakSpout** the same way as in setup (*Package Manager > + > git URL*:
+   `https://github.com/keijiro/KlakSpout.git?path=Packages/jp.keijiro.klak.spout`).
+3. Import **your avatar's shaders** (e.g. Poiyomi) so the avatar renders correctly.
+
+**Each time you bake and build:**
+1. In the **authoring project**, run **`VTuber My Avatar > Export Baked Avatar (for standalone
+   project)`**. It runs the real VRChat/VRCFury bake on a *disposable copy* (merging VRCFury
+   ArmatureLink outfits and applying Toggle state), converts PhysBones to build-safe SpringBones,
+   strips the SDK/VRCFury components, persists the generated meshes, and writes
    `Avatar_Baked.unitypackage`.
    - VRCFury Toggles bake at their default state, so set any outfit pieces "Default On"
      before exporting, or they bake hidden.
-2. In **`UnityStandalone/`** (no SDK), import that package into `Assets/Export/`, plus the
-   `Assets/vTuber` Scripts folder (keep the `.meta` files) and your shaders.
+2. In the **build project**, import that package into `Assets/Export/`.
 3. Run **`VTuber My Avatar > Build Scene`** there (it auto-finds `Assets/Export/Avatar_Baked.prefab`),
    then **File > Build Settings > Build** a standalone Windows player.
 
