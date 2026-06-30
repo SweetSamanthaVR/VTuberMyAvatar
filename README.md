@@ -44,6 +44,7 @@ your prefab.
 - [Build the standalone .exe (recommended)](#build-the-standalone-exe-recommended)
 - [Limitations & notes](#limitations--notes)
 - [Troubleshooting](#troubleshooting)
+- [License](#license)
 
 ---
 
@@ -336,3 +337,11 @@ project and rebuilt in a clean one that you set up once.
 | Arms stuck out in a T/A-pose | Turn on `idle.restArms` and dial in `restArmsAngle` (**F2 > Idle**), live, no relaunch. |
 | Arms folded/clipping into the body | `restArmsAngle` is too high for this avatar's bind pose, lower it (or turn `idle.restArms` off) live in **F2 > Idle**. |
 | Eyes don't fully close (esp. with glasses) | Press **B** with eyes open, then **B** with eyes closed (glasses on) to calibrate. Watch the overlay's "Eye-close: now" value while closing your eyes, if it can't get above ~0.4 through the glasses, webcam blink isn't usable and auto-blink is the better option. |
+
+---
+
+## License
+
+The tracker and driver code in this repo are licensed under the [MIT License](LICENSE).
+That covers the kit only, not any avatar, outfit, or shader you use with it, those keep
+their own original licences (see [Bring your own avatar](#bring-your-own-avatar)).
