@@ -87,7 +87,7 @@ yourself, once:
 |------------|-----------------|
 | **Unity 2022.3.22f1** (Built-in RP) | Unity Hub |
 | **VRChat SDK3 (Avatars)** | VRChat Creator Companion (VCC) |
-| **VRCFury** | VCC *(optional, only if your avatar uses it)* |
+| **VRCFury** | VCC *(optional for the authoring project itself, but required to Export Baked Avatar for the standalone build, even if your avatar doesn't otherwise use it)* |
 | **Poiyomi** / your avatar's shaders | *optional, only if your avatar uses it* |
 | **KlakSpout** | added in Package Manager via git URL during setup (needs [Git for Windows](https://git-scm.com/download/win)) |
 | **Spout2 Plugin for OBS** | https://github.com/Off-World-Live/obs-spout2-plugin |
@@ -271,16 +271,30 @@ project and rebuilt in a clean one that you set up once.
 3. Import **your avatar's shaders** (e.g. Poiyomi) so the avatar renders correctly.
 
 **Each time you bake and build:**
-1. In the **authoring project**, run **`VTuber My Avatar > Export Baked Avatar (for standalone
+1. **Prepare the avatar in the authoring project, before exporting:**
+   - **VRCFury must be installed.** The export bakes through VRCFury's own build pipeline
+     (the same one behind "Build an Editor Test Copy"), and aborts if VRCFury isn't
+     present, even for an avatar that doesn't otherwise use VRCFury.
+   - **Save your current scene.** Export closes it and opens a fresh one to bake in.
+   - Confirm the right prefab is picked: **`VTuber My Avatar > Select Avatar Prefab...`**
+     (export reuses the same choice as *Build Scene*).
+   - Set any VRCFury Toggle outfit pieces to **Default On**, since Toggles bake at
+     their default state and anything left off bakes hidden.
+   - *(Optional preview)* Run **`VTuber My Avatar > Convert PhysBones to Spring Bones
+     (current scene)`** to see the build-safe hair/clothing feel in the editor first.
+     The export converts PhysBones to SpringBones automatically, so this step is purely
+     a preview, useful if you want to check the feel (or re-check it after retuning a
+     PhysBone) before committing to an export.
+2. In the **authoring project**, run **`VTuber My Avatar > Export Baked Avatar (for standalone
    project)`**. It runs the real VRChat/VRCFury bake on a *disposable copy* (merging VRCFury
    ArmatureLink outfits and applying Toggle state), converts PhysBones to build-safe SpringBones,
    strips the SDK/VRCFury components, persists the generated meshes, and writes
-   `Avatar_Baked.unitypackage`.
-   - VRCFury Toggles bake at their default state, so set any outfit pieces "Default On"
-     before exporting, or they bake hidden.
-2. In the **build project**, import that package into `Assets/Export/`.
-3. Run **`VTuber My Avatar > Build Scene`** there (it auto-finds `Assets/Export/Avatar_Baked.prefab`),
-   then **File > Build Settings > Build** a standalone Windows player.
+   **`Avatar_Baked.unitypackage`** into the authoring project's root folder (next to its
+   `Assets/` folder).
+3. In the **build project**, import that package into `Assets/Export/` (this is where
+   `Build Scene` auto-finds `Avatar_Baked.prefab`, so no manual selection is needed there).
+4. Run **`VTuber My Avatar > Build Scene`** there, then **File > Build Settings > Build** a
+   standalone Windows player.
 
 ---
 
