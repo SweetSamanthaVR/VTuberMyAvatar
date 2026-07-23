@@ -27,8 +27,61 @@ your prefab.
 
 ---
 
+## Quick Start (TL;DR)
+
+Already comfortable with Unity/VRChat avatar setup and just want the steps? This skips the
+explanations, see the full sections below if anything doesn't make sense.
+
+**1. Install once**
+- Python 3.10-3.12 (PATH checked)
+- Unity 2022.3.22f1 (Built-in RP)
+- VRChat SDK3 + VRCFury via VCC
+- Spout2 Plugin for OBS
+- Git for Windows (needed for the KlakSpout package fetch)
+
+**2. Authoring project (one-time)**
+1. Copy your VRChat avatar project, work only in the copy.
+2. Open in Unity 2022.3.22f1 with the VRChat SDK (+ VRCFury).
+3. Make sure your avatar is a prefab.
+4. Copy `Unity/Assets/vTuber/` into the project's `Assets/` (keep `.meta` files).
+5. Package Manager -> + -> Add package from git URL:
+   `https://github.com/keijiro/KlakSpout.git?path=Packages/jp.keijiro.klak.spout`
+6. Select your avatar prefab -> `VTuber My Avatar > Select Avatar Prefab...`
+7. Run `VTuber My Avatar > Build Scene`
+8. *(Optional)* Press Play to test.
+
+**3. Prepare & export the baked avatar**
+1. Confirm VRCFury is installed (export needs it even if the avatar doesn't otherwise use it).
+2. Save your current scene.
+3. Confirm the avatar prefab is selected (`Select Avatar Prefab...`).
+4. Set any VRCFury Toggle outfit pieces to **Default On**.
+5. *(Optional)* `VTuber My Avatar > Convert PhysBones to Spring Bones (current scene)` to
+   preview build-safe physics.
+6. Run `VTuber My Avatar > Export Baked Avatar (for standalone project)`.
+7. Find `Avatar_Baked.unitypackage` in the authoring project's root folder.
+
+**4. Standalone build project & build the .exe**
+1. *(First time)* Unity Hub -> new empty 3D (Built-in RP) project, Unity 2022.3.22f1,
+   **no VRChat SDK**.
+2. *(First time)* Copy `UnityStandalone/Assets/vTuber/` into its `Assets/` (keep `.meta`),
+   add KlakSpout (same git URL as above), import your avatar's shaders (e.g. Poiyomi).
+3. Import `Avatar_Baked.unitypackage` into `Assets/Export/`.
+4. Run `VTuber My Avatar > Build Scene`.
+5. `File > Build Settings > Build` -> standalone Windows player.
+
+**5. Go live (every stream)**
+1. Start the tracker: `Tracker/start_tracker.bat` (first time: `--list-cameras`, set
+   `camera_index` in `Tracker/config.json`).
+2. Launch your built `.exe`.
+3. In OBS: **+** -> Spout2 Capture -> source `VTuberMyAvatar` (already set up after the
+   first time).
+4. Face the camera, press **R** to recentre.
+
+---
+
 ## Table of Contents
 
+- [Quick Start (TL;DR)](#quick-start-tldr)
 - [Bring your own avatar](#bring-your-own-avatar)
 - [What you get](#what-you-get)
 - [What you need (install once)](#what-you-need-install-once)
